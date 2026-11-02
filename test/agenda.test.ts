@@ -28,4 +28,12 @@ describe("Agenda", () => {
         expect(() => agenda.agregar(new Contacto("Otra Ana", "ANA@ucp.edu.ar"))).toThrow();
         expect(agenda.contactos.length).toBe(1);
     });
-});
+        it("debe modificar el nombre y el email de un contacto", () => {
+        agenda.agregar(new Contacto("Ana Pérez", "ana@ucp.edu.ar"));
+        agenda.modificar("ana@ucp.edu.ar", "Ana María Pérez", "anamaria@ucp.edu.ar");
+
+        const modificado = agenda.buscar("anamaria@ucp.edu.ar");
+        expect(modificado?.nombreCompleto).toBe("Ana María Pérez");
+        expect(agenda.existe("ana@ucp.edu.ar")).toBe(false);
+    });
+}); 
