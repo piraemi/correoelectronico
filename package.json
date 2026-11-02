@@ -7,11 +7,12 @@
     "test": "test"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^5.1.0",
     "typescript": "^7.0.2",
     "vitest": "^5.1.0"
   },
   "scripts": {
-  "test": "vitest run"
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
