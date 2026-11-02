@@ -21,4 +21,15 @@ describe("GestorBandejas", () => {
         expect(gestorBandejas.bandejaEnviados).toContain(correo);
         expect(gestorBandejas.bandejaBorrador).not.toContain(correo);
     });
+        it("no debe enviar un correo sin asunto o sin destinatarios", () => {
+        const remitente = new Contacto("Juan Pérez", "juan.perez@example.com");
+        const destinatario = new Contacto("María García", "maria.garcia@example.com");
+        const sinAsunto = new Correo("", "Cuerpo", remitente, [destinatario]);
+        const sinDestinatarios = new Correo("Asunto", "Cuerpo", remitente, []);
+        const gestorBandejas = new GestorBandejas();
+
+        expect(() => gestorBandejas.enviarCorreo(sinAsunto)).toThrow();
+        expect(() => gestorBandejas.enviarCorreo(sinDestinatarios)).toThrow();
+        expect(gestorBandejas.bandejaEnviados.length).toBe(0);
+    });
 });
