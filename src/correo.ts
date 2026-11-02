@@ -3,16 +3,19 @@ export class Correo {
     private _asunto: string;
     private _contenido: string;
     private _remitente: string;
-    private _destinatario: string;
+    private _destinatarios: string[];
     private _leido: boolean;
     private _favorito: boolean; 
 
-    constructor(ID: number, asunto: string, contenido: string, remitente: string, destinatario: string) {
+    constructor(ID: number, asunto: string, contenido: string, remitente: string, destinatarios: string[]) {
         this._ID = ID;
         this._asunto = asunto;
         this._contenido = contenido;
         this._remitente = remitente;
-        this._destinatario = destinatario;
+        this._destinatarios = destinatarios;
+        if (destinatarios.length === 0) {
+            throw new Error("Debe haber al menos un destinatario");
+        }
         this._leido = false;
         this._favorito = false;
     }
@@ -33,8 +36,8 @@ export class Correo {
         return this._remitente;
     }
 
-    public get destinatario(): string {
-        return this._destinatario;
+    public get destinatarios(): string[]{
+        return [...this._destinatarios];
     }
 
     public get leido(): boolean {
