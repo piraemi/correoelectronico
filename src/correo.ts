@@ -66,4 +66,7 @@ export class Correo {
     private static lanzarError(mensaje: string): never {
         throw new Error(mensaje);
     }
+    public static reiniciarContador(): void {
+        Correo.contador = 0;
+    }
 }

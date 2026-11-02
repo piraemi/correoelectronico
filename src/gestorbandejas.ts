@@ -20,8 +20,14 @@ export class GestorBandejas {
      }
      this.bandejaEnviados.push(correo);
     }
-
-   public get bandejaEnviados(): Correo[] {
+    public guardarBorrador(correo: Correo): void {
+        this._bandejaBorrador.push(correo);
+        const yaEnBorrador = this._bandejaBorrador.some(c => c.ID === correo.ID);
+        if (yaEnBorrador) {
+            throw new Error(`El correo con ID ${correo.ID} ya está en borradores.`);
+        }
+    }
+        public get bandejaEnviados(): Correo[] {
         return [...this._bandejaEnviados];
     }
     public get bandejaBorrador(): Correo[] {
