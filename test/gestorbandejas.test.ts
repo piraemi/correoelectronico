@@ -14,6 +14,8 @@ describe("GestorBandejas", () => {
         const correo = new Correo("Asunto del correo", "Cuerpo del correo", remitente , [destinatario]);
         const gestorBandejas = new GestorBandejas();
 
+
+        gestorBandejas.guardarBorrador(correo);
         gestorBandejas.enviarCorreo(correo);
 
         expect(gestorBandejas.bandejaEnviados).toContain(correo);

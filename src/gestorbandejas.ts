@@ -9,7 +9,6 @@ export class GestorBandejas {
         this._bandejaBorrador = [];
     }
     public enviarCorreo(correo: Correo): void {
-     this._bandejaEnviados.push(correo); 
      const yaEnviado = this._bandejaEnviados.some(c => c.ID === correo.ID);
      if (yaEnviado) {
          throw new Error(`El correo con ID ${correo.ID} ya ha sido enviado.`);
@@ -18,14 +17,14 @@ export class GestorBandejas {
      if (indiceEnBorrador !== -1) {
          this._bandejaBorrador.splice(indiceEnBorrador, 1);
      }
-     this.bandejaEnviados.push(correo);
+     this._bandejaEnviados.push(correo);
     }
     public guardarBorrador(correo: Correo): void {
-        this._bandejaBorrador.push(correo);
         const yaEnBorrador = this._bandejaBorrador.some(c => c.ID === correo.ID);
         if (yaEnBorrador) {
             throw new Error(`El correo con ID ${correo.ID} ya está en borradores.`);
         }
+        this._bandejaBorrador.push(correo);
     }
         public get bandejaEnviados(): Correo[] {
         return [...this._bandejaEnviados];
@@ -33,6 +32,5 @@ export class GestorBandejas {
     public get bandejaBorrador(): Correo[] {
         return [...this._bandejaBorrador];
     }
-   
     
 }
