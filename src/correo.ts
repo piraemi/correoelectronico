@@ -1,16 +1,19 @@
-import { Contacto } from "./contacto";  
+import { Contacto } from "./contacto";
+
 export class Correo {
+    private static contador: number = 0;
+
     private _ID: number;
     private _asunto: string;
     private _contenido: string;
     private _remitente: Contacto;
-    private _destinatarios:Contacto[];
+    private _destinatarios: Contacto[];
     private _leido: boolean;
-    private _favorito: boolean; 
+    private _favorito: boolean;
 
-
-constructor(ID: number, asunto: string, contenido: string, remitente: Contacto, destinatarios: Contacto[]) {
-        this._ID = ID;
+    constructor(asunto: string, contenido: string, remitente: Contacto, destinatarios: Contacto[]) {
+        Correo.contador++;
+        this._ID = Correo.contador;
         this._asunto = asunto;
         this._contenido = contenido;
         this._remitente = remitente;
@@ -18,6 +21,7 @@ constructor(ID: number, asunto: string, contenido: string, remitente: Contacto, 
         this._leido = false;
         this._favorito = false;
     }
+
     public get ID(): number {
         return this._ID;
     }
@@ -34,7 +38,7 @@ constructor(ID: number, asunto: string, contenido: string, remitente: Contacto, 
         return this._remitente;
     }
 
-    public get destinatarios(): Contacto[]{
+    public get destinatarios(): Contacto[] {
         return [...this._destinatarios];
     }
 
@@ -42,15 +46,15 @@ constructor(ID: number, asunto: string, contenido: string, remitente: Contacto, 
         return this._leido;
     }
 
-    public set leido(value: boolean) {
-        this._leido = value;
+    public set leido(valor: boolean) {
+        this._leido = valor;
     }
 
     public get favorito(): boolean {
         return this._favorito;
     }
 
-    public set favorito(value: boolean) {
-        this._favorito = value;
+    public set favorito(valor: boolean) {
+        this._favorito = valor;
     }
 }
