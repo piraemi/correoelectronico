@@ -16,7 +16,7 @@ export class Correo {
         this._ID = Correo.contador;
         this._asunto = asunto;
         this._contenido = contenido;
-        this._remitente = remitente;
+        this._remitente = Correo.validarRemitente(remitente);
         this._destinatarios = [...destinatarios];
         this._leido = false;
         this._favorito = false;
@@ -56,5 +56,14 @@ export class Correo {
 
     public set favorito(valor: boolean) {
         this._favorito = valor;
+    }
+        private static validarRemitente(remitente: Contacto): Contacto {
+        return remitente instanceof Contacto
+            ? remitente
+            : Correo.lanzarError("El correo debe tener un remitente");
+    }
+
+    private static lanzarError(mensaje: string): never {
+        throw new Error(mensaje);
     }
 }
