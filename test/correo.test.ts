@@ -12,5 +12,10 @@ describe('Correo', () => {
         destinatario1 = new Contacto("María García", "maria.garcia@gmail.com");
         destinatario2 = new Contacto("Carlos López", "carlos.lopez@gmail.com");
         correo = new Correo("Asunto del correo", "Contenido del correo", remitente, [destinatario1, destinatario2]);
+        expect(correo.remitente).toBe(remitente);
+        expect(correo.destinatarios).toContain(destinatario1);
+        expect(correo.destinatarios).toContain(destinatario2);
+        expect(correo.asunto).toBe("Asunto del correo");
+        expect(correo.contenido).toBe("Contenido del correo");
     });
 });
