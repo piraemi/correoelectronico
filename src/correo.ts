@@ -1,25 +1,23 @@
+import { Contacto } from "./contacto";  
 export class Correo {
     private _ID: number;
     private _asunto: string;
     private _contenido: string;
-    private _remitente: string;
-    private _destinatarios: string[];
+    private _remitente: Contacto;
+    private _destinatarios:Contacto[];
     private _leido: boolean;
     private _favorito: boolean; 
 
-    constructor(ID: number, asunto: string, contenido: string, remitente: string, destinatarios: string[]) {
+
+constructor(ID: number, asunto: string, contenido: string, remitente: Contacto, destinatarios: Contacto[]) {
         this._ID = ID;
         this._asunto = asunto;
         this._contenido = contenido;
         this._remitente = remitente;
-        this._destinatarios = destinatarios;
-        if (destinatarios.length === 0) {
-            throw new Error("Debe haber al menos un destinatario");
-        }
+        this._destinatarios = [...destinatarios];
         this._leido = false;
         this._favorito = false;
     }
-
     public get ID(): number {
         return this._ID;
     }
@@ -32,11 +30,11 @@ export class Correo {
         return this._contenido;
     }
 
-    public get remitente(): string {
+    public get remitente(): Contacto {
         return this._remitente;
     }
 
-    public get destinatarios(): string[]{
+    public get destinatarios(): Contacto[]{
         return [...this._destinatarios];
     }
 
