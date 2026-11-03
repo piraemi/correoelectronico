@@ -19,9 +19,17 @@ describe('Correo', () => {
         expect(correo.contenido).toBe("Contenido del correo");
     });
     it ("debe poder marcar un correo como leído y favorito", () => {
-        correo.leido = true;
-        correo.favorito = true;
+        Correo.setFavorito(correo);
+        Correo.setLeido(correo);
         expect(correo.leido).toBe(true);
         expect(correo.favorito).toBe(true);
+    });
+    it ("debe poder desmarcar un correo como leído y favorito", () => {
+        Correo.setFavorito(correo);
+        Correo.setLeido(correo);
+        Correo.unsetLeido(correo);
+        Correo.unsetFavorito(correo);
+        expect(correo.leido).toBe(false);
+        expect(correo.favorito).toBe(false);
     });
 });
