@@ -36,4 +36,10 @@ describe("Agenda", () => {
         expect(modificado?.nombreCompleto).toBe("Ana María Pérez");
         expect(agenda.existe("ana@ucp.edu.ar")).toBe(false);
     });
+        it("no debe modificar el email a uno que ya usa otro contacto", () => {
+        agenda.agregar(new Contacto("Ana Pérez", "ana@ucp.edu.ar"));
+        agenda.agregar(new Contacto("Juan Gómez", "juan@gmail.com"));
+
+        expect(() => agenda.modificar("juan@gmail.com", "Juan Gómez", "ana@ucp.edu.ar")).toThrow();
+    });
 }); 
