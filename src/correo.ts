@@ -57,7 +57,7 @@ export class Correo {
     public set favorito(valor: boolean) {
         this._favorito = valor;
     }
-        private static validarRemitente(remitente: Contacto): Contacto {
+    private static validarRemitente(remitente: Contacto): Contacto {
         return remitente instanceof Contacto
             ? remitente
             : Correo.lanzarError("El correo debe tener un remitente");
@@ -68,5 +68,17 @@ export class Correo {
     }
     public static reiniciarContador(): void {
         Correo.contador = 0;
+    }
+    public static setFavorito(correo: Correo) {
+        correo._favorito = true;
+    }
+    public static unsetFavorito(correo: Correo) {
+        correo._favorito = false;
+    }
+    public static setLeido(correo: Correo) {
+        correo._leido = true;
+    }
+    public static unsetLeido(correo: Correo) {
+        correo._leido = false;
     }
 }
