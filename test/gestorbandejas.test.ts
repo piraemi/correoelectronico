@@ -53,4 +53,29 @@ describe("GestorBandejas", () => {
 
         expect(() => gestorBandejas.guardarBorrador(correo)).toThrow(Error);
     });
+    it("debe enviar un correo y que aparezca en la bandeja de recibidos del destinatario", () => {
+        const remitente = new Contacto("Juan Pérez", "juan.perez@example.com");
+        const destinatario = new Contacto("María García", "maria.garcia@example.com");
+        const correo = new Correo("Asunto del correo", "Cuerpo del correo", remitente, [destinatario]);
+        const gestorBandejas = new GestorBandejas();
+
+        gestorBandejas.enviarCorreo(correo);
+        const bandejaMaria = gestorBandejas.bandejaRecibidos("maria.garcia@example.com");
+
+        expect(bandejaMaria).toContain(correo);
+    });
+    it("debe enviar un correo a múltiples destinatarios y que aparezca en la bandeja de recibidos de cada uno", () => {
+        const remitente = new Contacto("Juan Pérez", "juan.perez@example.com");
+        const destinatario1 = new Contacto("María García", "maria.garcia@example.com");
+        const destinatario2 = new Contacto("Pedro López", "pedro.lopez@example.com");
+        const correo = new Correo("Asunto del correo", "Cuerpo del correo", remitente, [destinatario1, destinatario2]);
+        const gestorBandejas = new GestorBandejas();
+
+        gestorBandejas.enviarCorreo(correo);
+        const bandejaMaria = gestorBandejas.bandejaRecibidos("maria.garcia@example.com");
+        const bandejaPedro = gestorBandejas.bandejaRecibidos("pedro.lopez@example.com");
+
+        expect(bandejaMaria).toContain(correo);
+        expect(bandejaPedro).toContain(correo);
+    });
 });
