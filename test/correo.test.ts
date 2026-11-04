@@ -18,6 +18,14 @@ describe('Correo', () => {
         expect(correo.asunto).toBe("Asunto del correo");
         expect(correo.contenido).toBe("Contenido del correo");
     });
+    it("debe lanzar error al crear correo sin remitente", () => {
+        remitente = null as unknown as Contacto; // Forzamos un valor nulo para el remitente
+        destinatario1 = new Contacto("María García", "maria.garcia@gmail.com");
+        destinatario2 = new Contacto("Carlos López", "carlos.lopez@gmail.com");
+
+        expect(() => new Correo("Asunto", "Contenido", remitente, [destinatario1])).toThrowError("El correo debe tener un remitente");
+
+    });
     it ("debe poder marcar un correo como leído y favorito", () => {
         Correo.setFavorito(correo);
         Correo.setLeido(correo);
