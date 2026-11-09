@@ -1,4 +1,5 @@
 import { Contacto } from "./contacto";
+import { ValidadorCorreo } from "./validadorCorreo";
 
 export class Correo {
     private static contador: number = 0;
@@ -12,12 +13,16 @@ export class Correo {
     private _favorito: boolean;
 
     constructor(asunto: string, contenido: string, remitente: Contacto, destinatarios: Contacto[]) {
-        Correo.contador++;
-        this._ID = Correo.contador;
         this._asunto = asunto;
         this._contenido = contenido;
-        this._remitente = Correo.validarRemitente(remitente);
+        this._remitente = remitente;
         this._destinatarios = [...destinatarios];
+        
+         ValidadorCorreo.validarCorreo(this);
+
+        Correo.contador++;
+        this._ID = Correo.contador;
+       
         this._leido = false;
         this._favorito = false;
     }
@@ -57,15 +62,7 @@ export class Correo {
     public set favorito(valor: boolean) {
         this._favorito = valor;
     }
-    private static validarRemitente(remitente: Contacto): Contacto {
-        return remitente instanceof Contacto
-            ? remitente
-            : Correo.lanzarError("El correo debe tener un remitente");
-    }
-
-    private static lanzarError(mensaje: string): never {
-        throw new Error(mensaje);
-    }
+   
     public static reiniciarContador(): void {
         Correo.contador = 0;
     }
