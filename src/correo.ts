@@ -66,16 +66,4 @@ export class Correo {
     public static reiniciarContador(): void {
         Correo.contador = 0;
     }
-    public static setFavorito(correo: Correo) {
-        correo._favorito = true;
-    }
-    public static unsetFavorito(correo: Correo) {
-        correo._favorito = false;
-    }
-    public static setLeido(correo: Correo) {
-        correo._leido = true;
-    }
-    public static unsetLeido(correo: Correo) {
-        correo._leido = false;
-    }
 }
