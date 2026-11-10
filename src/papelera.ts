@@ -26,4 +26,12 @@ export class Papelera {
     private static lanzarError(mensaje: string): never {
         throw new Error(mensaje);
     }
+        public restaurar(correo: Correo): void {
+        const origen = this._origenes.get(correo.ID)
+            ?? Papelera.lanzarError(`El correo ${correo.ID} no está en Eliminados`);
+
+        this._eliminados.eliminarCorreoPorID(correo.ID);
+        origen.agregarCorreo(correo);
+        this._origenes.delete(correo.ID);
+    }
 }
