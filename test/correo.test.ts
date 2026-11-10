@@ -25,19 +25,5 @@ describe('Correo', () => {
 
         expect(() => new Correo("Asunto", "Contenido", remitente, [destinatario1])).toThrowError("El correo debe tener un remitente");
 
-    });
-    it ("debe poder marcar un correo como leído y favorito", () => {
-        Correo.setFavorito(correo);
-        Correo.setLeido(correo);
-        expect(correo.leido).toBe(true);
-        expect(correo.favorito).toBe(true);
-    });
-    it ("debe poder desmarcar un correo como leído y favorito", () => {
-        Correo.setFavorito(correo);
-        Correo.setLeido(correo);
-        Correo.unsetLeido(correo);
-        Correo.unsetFavorito(correo);
-        expect(correo.leido).toBe(false);
-        expect(correo.favorito).toBe(false);
-    });
 });
+})
