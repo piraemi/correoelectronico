@@ -8,8 +8,8 @@ describe("Predicados", () => {
     it("debe identificar los correos que cumplen cada condición", () => {
         const ana = new Contacto("Ana Pérez", "ana@empresa.com");
         const juan = new Contacto("Juan Gómez", "juan@gmail.com");
-        const correo1 = new Correo("Hola", "Cómo estás", ana, [juan]);
-        const correo2 = new Correo("Chau", "Nos vemos", juan, [ana]);
+        const correo1 = new Correo(1, "Hola", "Cómo estás", ana, [juan]);
+        const correo2 = new Correo(2, "Chau", "Nos vemos", juan, [ana]);
         const destinatario = new Contacto("Destinatario", "destinatario@empresa.com");
         const correos = [correo1, correo2];
 

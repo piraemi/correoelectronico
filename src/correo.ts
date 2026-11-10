@@ -12,7 +12,8 @@ export class Correo {
     private _leido: boolean;
     private _favorito: boolean;
 
-    constructor(asunto: string, contenido: string, remitente: Contacto, destinatarios: Contacto[]) {
+    constructor(ID: number, asunto: string, contenido: string, remitente: Contacto, destinatarios: Contacto[]) {
+        this._ID = ID;
         this._asunto = asunto;
         this._contenido = contenido;
         this._remitente = remitente;
@@ -20,8 +21,6 @@ export class Correo {
         
          ValidadorCorreo.validarCorreo(this);
 
-        Correo.contador++;
-        this._ID = Correo.contador;
        
         this._leido = false;
         this._favorito = false;
@@ -63,7 +62,4 @@ export class Correo {
         this._favorito = valor;
     }
    
-    public static reiniciarContador(): void {
-        Correo.contador = 0;
-    }
 }

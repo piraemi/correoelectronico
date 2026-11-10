@@ -14,13 +14,12 @@ describe("EnviadorCorreos", () => {
   let enviador: EnviadorCorreo;
 
   beforeEach(() => {
-    Correo.reiniciarContador();
     
     remitente = new Contacto("Juan", "juan@test.com");
     destinatario1 = new Contacto("María", "maria@test.com");
     destinatario2 = new Contacto("Pedro", "pedro@test.com");
     
-    correo = new Correo("Proyecto TS", "Cuerpo del mensaje", remitente, [destinatario1, destinatario2]);
+    correo = new Correo(1, "Proyecto TS", "Cuerpo del mensaje", remitente, [destinatario1, destinatario2]);
     
     enviados = new BandejaEnviados();
     borradores = new BandejaBorradores();
