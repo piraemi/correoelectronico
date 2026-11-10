@@ -14,7 +14,7 @@ export const filtroLeidosFavoritos = new Filtro(
 
 export const filtroUrgentesNoLeidos = new Filtro(
   "Urgentes por revisar",
-  AND(asuntoTieneUrgente, NOT(Leido))
+  AND(asuntoTieneUrgente, (Leido))
 );
 export const filtroMasivosNoFavoritos = new Filtro(
   "Difusiones estandar",
