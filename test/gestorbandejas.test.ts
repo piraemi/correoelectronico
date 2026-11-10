@@ -52,16 +52,18 @@ describe("GestorBandejas y clases hijas", () => {
         const enviados = new BandejaEnviados();
         const borradores = new BandejaBorradores();
         const enviador = new EnviadorCorreo(enviados, borradores);
-        const bandejaRecibidosDestinatario1 = new BandejaRecibidos();
-        const bandejaRecibidosDestinatario2 = new BandejaRecibidos();
-        const bandejaRecibidosDestinatario3 = new BandejaRecibidos();
-
+        borradores.agregarCorreo(correo); // Agregamos el correo a la bandeja de borradores
         enviador.enviarCorreo(correo);
 
-        bandejaRecibidosDestinatario1.eliminarCorreoPorID(correo.ID);
-        expect(bandejaRecibidosDestinatario1.correos).not.toContain(correo);
-        expect(bandejaRecibidosDestinatario2.correos).toContain(correo);
-        expect(bandejaRecibidosDestinatario3.correos).toContain(correo);
+        const bandejaRecibidosDestinatario1 = enviador.obtenerBandejaRecibidosDe(destinatario1.email);
+        const bandejaRecibidosDestinatario2 = enviador.obtenerBandejaRecibidosDe(destinatario2.email);
+        const bandejaRecibidosDestinatario3 = enviador.obtenerBandejaRecibidosDe(destinatario3.email);
+
+        bandejaRecibidosDestinatario1!.eliminarCorreoPorID(correo.ID);
+        
+        expect(bandejaRecibidosDestinatario1!.correos).not.toContain(correo);
+        expect(bandejaRecibidosDestinatario2!.correos).toContain(correo);
+        expect(bandejaRecibidosDestinatario3!.correos).toContain(correo);
 
     });
 

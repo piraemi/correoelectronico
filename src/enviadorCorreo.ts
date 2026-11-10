@@ -6,7 +6,7 @@ export class EnviadorCorreo {
     private _borradores: BandejaBorradores;
     private _mapaRecibidos: Map<string, BandejaRecibidos>;
 
-    constructor (
+    constructor(
         enviados: BandejaEnviados,
         borradores: BandejaBorradores,
         mapaRecibidos: Map<string, BandejaRecibidos> = new Map()
@@ -15,7 +15,10 @@ export class EnviadorCorreo {
         this._borradores = borradores;
         this._mapaRecibidos = mapaRecibidos;
     }
-    
+    public obtenerBandejaRecibidosDe(email: string): BandejaRecibidos | undefined {
+        return this._mapaRecibidos.get(email);
+    }
+
     public enviarCorreo(correo: Correo): void {
         const yaEnviado = this._enviados.existeCorreoPorID(correo.ID);
         if (yaEnviado) {
