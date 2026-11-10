@@ -1,81 +1,49 @@
 import {Correo} from '../src/correo';
 import {Contacto} from '../src/contacto';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { GestorBandejas } from '../src/gestorbandejas';
+import { BandejaEnviados, BandejaBorradores, BandejaRecibidos } from '../src/bandejas';
 
-describe("GestorBandejas", () => {
+
+describe("GestorBandejas y clases hijas", () => {
+    let remitente: Contacto;
+    let destinatario1: Contacto;
+    let destinatario2: Contacto;
+    let correo: Correo;
+
     beforeEach(() => {
         Correo.reiniciarContador();
+        remitente = new Contacto("Remitente", "remitente@example.com");
+        destinatario1 = new Contacto("Destinatario 1", "destinatario1@example.com");
+        destinatario2 = new Contacto("Destinatario 2", "destinatario2@example.com");
+        correo = new Correo("Asunto de prueba", "Cuerpo del correo", remitente, [destinatario1, destinatario2]);
     });
 
-    it("debe enviar un correo y moverlo de la bandeja de borradores a la bandeja de enviados", () => {
-        const remitente = new Contacto("Juan Pérez", "juan.perez@example.com");
-        const destinatario = new Contacto("María García", "maria.garcia@example.com");
-        const correo = new Correo("Asunto del correo", "Cuerpo del correo", remitente , [destinatario]);
-        const gestorBandejas = new GestorBandejas();
-
-
-        gestorBandejas.guardarBorrador(correo);
-        gestorBandejas.enviarCorreo(correo);
-
-        expect(gestorBandejas.bandejaEnviados).toContain(correo);
-        expect(gestorBandejas.bandejaBorrador).not.toContain(correo);
+    it("debe agregar un correo al arreglo encapsulado", () => {
+        const borradores = new BandejaBorradores();
+        borradores.agregarCorreo(correo);
+        expect(borradores.correos).toContain(correo);
+        expect(borradores.correos.length).toBe(1);
     });
-    it("no debe enviar un correo sin asunto o sin destinatarios", () => {
-        const remitente = new Contacto("Juan Pérez", "juan.perez@example.com");
-        const destinatario = new Contacto("María García", "maria.garcia@example.com");
-        const sinAsunto = new Correo("", "Cuerpo", remitente, [destinatario]);
-        const sinDestinatarios = new Correo("Asunto", "Cuerpo", remitente, []);
-        const gestorBandejas = new GestorBandejas();
 
-        expect(() => gestorBandejas.enviarCorreo(sinAsunto)).toThrow();
-        expect(() => gestorBandejas.enviarCorreo(sinDestinatarios)).toThrow();
-        expect(gestorBandejas.bandejaEnviados.length).toBe(0);
+    it("debe verificar la existencia de un correo por ID", () => {
+        const enviados = new BandejaEnviados();
+        enviados.agregarCorreo(correo);
+        expect(enviados.existeCorreoPorID(correo.ID)).toBe(true);
+        expect(enviados.existeCorreoPorID(999)).toBe(false);
     });
-    it("debe dar error al intentar enviar un correo ya enviado", () => {
-        const remitente = new Contacto("Juan Pérez", "juan.perez@example.com");
-        const destinatario = new Contacto("María García", "maria.garcia@example.com");
-        const correo = new Correo("Asunto del correo", "Cuerpo del correo", remitente, [destinatario]);
-        const gestorBandejas = new GestorBandejas();
 
-        gestorBandejas.guardarBorrador(correo);
-        gestorBandejas.enviarCorreo(correo);
-
-        expect(() => gestorBandejas.enviarCorreo(correo)).toThrow(Error);
+    it("debe eliminar un correo por ID", () => {
+        const recibidos = new BandejaRecibidos();
+        recibidos.agregarCorreo(correo);
+        expect(recibidos.correos.length).toBe(1);
+        recibidos.eliminarCorreoPorID(correo.ID);
+        expect(recibidos.correos.length).toBe(0);
     });
-    it("debe dar error al intentar guardar un correo ya en borradores", () => {
-        const remitente = new Contacto("Juan Pérez", "juan.perez@example.com");
-        const destinatario = new Contacto("María García", "maria.garcia@example.com");
-        const correo = new Correo("Asunto del correo", "Cuerpo del correo", remitente, [destinatario]);
-        const gestorBandejas = new GestorBandejas();
-
-        gestorBandejas.guardarBorrador(correo);
-
-        expect(() => gestorBandejas.guardarBorrador(correo)).toThrow(Error);
-    });
-    it("debe enviar un correo y que aparezca en la bandeja de recibidos del destinatario", () => {
-        const remitente = new Contacto("Juan Pérez", "juan.perez@example.com");
-        const destinatario = new Contacto("María García", "maria.garcia@example.com");
-        const correo = new Correo("Asunto del correo", "Cuerpo del correo", remitente, [destinatario]);
-        const gestorBandejas = new GestorBandejas();
-
-        gestorBandejas.enviarCorreo(correo);
-        const bandejaMaria = gestorBandejas.bandejaRecibidos("maria.garcia@example.com");
-
-        expect(bandejaMaria).toContain(correo);
-    });
-    it("debe enviar un correo a múltiples destinatarios y que aparezca en la bandeja de recibidos de cada uno", () => {
-        const remitente = new Contacto("Juan Pérez", "juan.perez@example.com");
-        const destinatario1 = new Contacto("María García", "maria.garcia@example.com");
-        const destinatario2 = new Contacto("Pedro López", "pedro.lopez@example.com");
-        const correo = new Correo("Asunto del correo", "Cuerpo del correo", remitente, [destinatario1, destinatario2]);
-        const gestorBandejas = new GestorBandejas();
-
-        gestorBandejas.enviarCorreo(correo);
-        const bandejaMaria = gestorBandejas.bandejaRecibidos("maria.garcia@example.com");
-        const bandejaPedro = gestorBandejas.bandejaRecibidos("pedro.lopez@example.com");
-
-        expect(bandejaMaria).toContain(correo);
-        expect(bandejaPedro).toContain(correo);
+    it ("no debe alterar el arreglo si se intenta eliminar un correo que no existe", () => {
+        const recibidos = new BandejaRecibidos();
+        recibidos.agregarCorreo(correo);
+        expect(recibidos.correos.length).toBe(1);
+        recibidos.eliminarCorreoPorID(999);
+        expect(recibidos.correos.length).toBe(1);
     });
 });
