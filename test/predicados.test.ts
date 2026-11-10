@@ -1,4 +1,4 @@
-import { remitenteDeDominio, asuntoContiene, AND, OR, NOT, Predicado } from '../src/predicados';
+import { remitenteDeDominio, asuntoContiene, AND, OR, NOT, Predicado, contenidoContiene } from '../src/predicados';
 import { Correo } from '../src/correo';
 import { Contacto } from '../src/contacto';
 import { describe, it, expect } from 'vitest';
@@ -15,6 +15,7 @@ describe("Predicados", () => {
 
         expect(correos.filter(remitenteDeDominio("@empresa.com"))).toEqual([correo1]);
         expect(correos.filter(asuntoContiene("chau"))).toEqual([correo2]);
+        expect(correos.filter(contenidoContiene("Cómo"))).toEqual([correo1]);
     });
 });
 
