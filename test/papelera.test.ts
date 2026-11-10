@@ -26,4 +26,7 @@ describe("Papelera", () => {
         expect(eliminados.correos).toContain(correo);
         expect(recibidos.correos).not.toContain(correo);
     });
+    it("debe lanzar error al intentar restaurar un correo que no está en Eliminados", () => {
+        expect(() => papelera.restaurar(correo)).toThrowError(`El correo ${correo.ID} no está en Eliminados`);
+    });
 });
