@@ -1,5 +1,5 @@
 {
-  "name": "correoelectronico",
+  "name": "@piraemi/correoelectronico",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -26,5 +26,7 @@
   "bugs": {
     "url": "https://github.com/piraemi/correoelectronico/issues"
   },
-  "homepage": "https://github.com/piraemi/correoelectronico#readme"
+  "homepage": "https://github.com/piraemi/correoelectronico#readme",
+  "publishConfig": {
+     "registry": "https://npm.pkg.github.com" }
 }
