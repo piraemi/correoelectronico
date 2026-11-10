@@ -14,3 +14,12 @@ export const contenidoContiene = (texto: string): Predicado =>
 export const noLeido: Predicado = c => !c.leido;
 
 export const esFavorito: Predicado = c => c.favorito;
+
+export const AND = (p1: Predicado, p2: Predicado): Predicado => 
+  (c: Correo) => p1(c) && p2(c);
+
+export const OR = (p1: Predicado, p2: Predicado): Predicado => 
+  (c: Correo) => p1(c) || p2(c);
+
+export const NOT = (p: Predicado): Predicado => 
+  (c: Correo) => !p(c);
