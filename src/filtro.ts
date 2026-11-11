@@ -1,5 +1,7 @@
 import { Correo } from './correo';
 import { Predicado } from './predicados';
+import { BandejaEnviados, BandejaBorradores, BandejaRecibidos } from '../src/bandejas';
+import { GestorBandejas } from './gestorbandejas';
 
 export class Filtro {
   public readonly nombre: string;
@@ -10,7 +12,8 @@ export class Filtro {
     this.predicado = predicado;
   }
 
-  public aplicar(coleccion: Correo[]): Correo[] {
-    return coleccion.filter(this.predicado);
+  public aplicar(coleccion: GestorBandejas | Correo[]): Correo[] {
+    const arregloAFiltrar = coleccion instanceof GestorBandejas ? coleccion.correos : coleccion;
+    return arregloAFiltrar.filter(this.predicado);
   }
 }
