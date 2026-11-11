@@ -5,8 +5,8 @@ import { describe, it, expect } from 'vitest';
 
 describe("Buscador", () => {
     const ana = new Contacto("Ana Pérez", "ana@gmail.com");
-    const juan = new Contacto("Juan Gómez", "juan@hotmail.com");
-    const correo1 = new Correo("Hola", "Cómo estás", ana, [juan]);
+    const juan = new Contacto("Juan Gómez", "juan@hotmail.com");    
+    const correo1 = new Correo("Hola", "Cómo estás", ana, [juan]);     
     const correo2 = new Correo("Chau", "Nos vemos", juan, [ana]);
     const correos = [correo1, correo2];
 
