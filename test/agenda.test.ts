@@ -42,4 +42,10 @@ describe("Agenda", () => {
 
         expect(() => agenda.modificar("juan@gmail.com", "Juan Gómez", "ana@ucp.edu.ar")).toThrow();
     });
+    it("debe eliminar un contacto existente", () => {
+        agenda.agregar(new Contacto("Ana Pérez", "ana@ucp.edu.ar"));
+        agenda.eliminar("ana@ucp.edu.ar");
+
+        expect(agenda.contactos).not.toContainEqual(new Contacto("Ana Pérez", "ana@ucp.edu.ar"));
+    });
 }); 

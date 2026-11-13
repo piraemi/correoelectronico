@@ -11,7 +11,7 @@ describe('Correo', () => {
         remitente = new Contacto("Juan Pérez", "juan.perez@gmail.com");
         destinatario1 = new Contacto("María García", "maria.garcia@gmail.com");
         destinatario2 = new Contacto("Carlos López", "carlos.lopez@gmail.com");
-        correo = new Correo("Asunto del correo", "Contenido del correo", remitente, [destinatario1, destinatario2]);
+        correo = new Correo(1, "Asunto del correo", "Contenido del correo", remitente, [destinatario1, destinatario2]);
         expect(correo.remitente).toBe(remitente);
         expect(correo.destinatarios).toContain(destinatario1);
         expect(correo.destinatarios).toContain(destinatario2);
@@ -23,7 +23,7 @@ describe('Correo', () => {
         destinatario1 = new Contacto("María García", "maria.garcia@gmail.com");
         destinatario2 = new Contacto("Carlos López", "carlos.lopez@gmail.com");
 
-        expect(() => new Correo("Asunto", "Contenido", remitente, [destinatario1])).toThrowError("El correo debe tener un remitente");
+        expect(() => new Correo(1, "Asunto", "Contenido", remitente, [destinatario1])).toThrowError("El correo debe tener un remitente");
 
 });
 })

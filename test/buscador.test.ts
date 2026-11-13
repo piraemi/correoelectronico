@@ -5,9 +5,15 @@ import { describe, it, expect } from 'vitest';
 
 describe("Buscador", () => {
     const ana = new Contacto("Ana Pérez", "ana@gmail.com");
+<<<<<<< HEAD
     const juan = new Contacto("Juan Gómez", "juan@hotmail.com");    
     const correo1 = new Correo("Hola", "Cómo estás", ana, [juan]);     
     const correo2 = new Correo("Chau", "Nos vemos", juan, [ana]);
+=======
+    const juan = new Contacto("Juan Gómez", "juan@hotmail.com");
+    const correo1 = new Correo(1, "Hola", "Cómo estás", ana, [juan]);
+    const correo2 = new Correo(2, "Chau", "Nos vemos", juan, [ana]);
+>>>>>>> 0d53494b4bff716fd9624f93346469e055774de2
     const correos = [correo1, correo2];
 
     it("debe buscar en el asunto sin distinguir mayúsculas y con coincidencias parciales", () => {
