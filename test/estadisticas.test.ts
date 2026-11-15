@@ -2,6 +2,7 @@ import { Estadisticas } from '../src/estadisticas';
 import { Correo } from '../src/correo';
 import { Contacto } from '../src/contacto';
 import { describe, it, expect } from 'vitest';
+import { noLeido } from '../src/predicados';
 
 describe("Estadisticas", () => {
     const ana = new Contacto("Ana Pérez", "ana@gmail.com");
@@ -12,5 +13,9 @@ describe("Estadisticas", () => {
 
     it("debe obtener la lista de asuntos", () => {
         expect(Estadisticas.asuntos(correos)).toEqual(["Hola", "Chau"]);
+    });
+        it("debe obtener los correos que cumplen una condición", () => {
+        correo1.leido = true;
+        expect(Estadisticas.queCumplen(correos, noLeido)).toEqual([correo2]);
     });
 });
