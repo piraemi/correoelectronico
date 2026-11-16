@@ -15,7 +15,7 @@ export class GestorBandejas {
     public get correos(): Correo[] {
         return [...this._correos];
     }
-        public get noLeidos(): Correo[] {
-        return this._correos.filter(noLeido);
+    public get noLeidos(): Correo[] {
+    return this._correos.filter(noLeido);
     }
 }
