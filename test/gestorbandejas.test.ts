@@ -58,45 +58,48 @@ describe("GestorBandejas y clases hijas", () => {
         const bandejaRecibidosDestinatario1 = enviador.obtenerBandejaRecibidosDe(destinatario1.email);
         const bandejaRecibidosDestinatario2 = enviador.obtenerBandejaRecibidosDe(destinatario2.email);
         const bandejaRecibidosDestinatario3 = enviador.obtenerBandejaRecibidosDe(destinatario3.email);
-
         bandejaRecibidosDestinatario1!.eliminarCorreoPorID(correo.ID);
-        
-        expect(bandejaRecibidosDestinatario1!.correos).not.toContain(correo);
-        expect(bandejaRecibidosDestinatario2!.correos).toContain(correo);
-        expect(bandejaRecibidosDestinatario3!.correos).toContain(correo);
+        const correoRecibido1 = bandejaRecibidosDestinatario1?.correos[0]
+        const correoRecibido2 = bandejaRecibidosDestinatario2?.correos[0]
+        const correoRecibido3 = bandejaRecibidosDestinatario3?.correos[0]
+
+
+
+        expect(correoRecibido1).not.toEqual(correo);
+        expect(correoRecibido2).toEqual(correo);
+        expect(correoRecibido3).toEqual(correo);
 
     });
     describe("RF-07: Gestión de Borradores", () => {
 
-  it("debe guardar un borrador incompleto, impedir su envío, permitir editarlo y luego enviarlo", () => {
-    const remitente = new Contacto("Juan", "juan@test.com");
-    const destinatario = new Contacto("María", "maria@test.com");
-    const borradores = new BandejaBorradores();
-    const enviados = new BandejaEnviados();
-    const enviador = new EnviadorCorreo(enviados, borradores);
+        it("debe guardar un borrador incompleto, impedir su envío, permitir editarlo y luego enviarlo", () => {
+            const remitente = new Contacto("Juan", "juan@test.com");
+            const destinatario = new Contacto("María", "maria@test.com");
+            const borradores = new BandejaBorradores();
+            const enviados = new BandejaEnviados();
+            const enviador = new EnviadorCorreo(enviados, borradores);
 
-   
-    const borrador = new Correo(1, "", "", remitente);
-    borradores.agregarCorreo(borrador);
-    expect(borradores.correos).toContain(borrador);
 
-    
-    expect(() => enviador.enviarCorreo(borrador)).toThrow();
-    expect(borradores.correos).toContain(borrador);
-    expect(enviados.correos).toHaveLength(0);
+            const borrador = new Correo(1, "", "", remitente);
+            borradores.agregarCorreo(borrador);
+            expect(borradores.correos).toContain(borrador);
 
-  
-    borradores.editarBorrador(borrador.ID, {
-      asunto: "Propuesta final",
-      contenido: "Adjunto los detalles.",
-      destinatarios: [destinatario]
+
+            expect(() => enviador.enviarCorreo(borrador)).toThrow();
+            expect(borradores.correos).toContain(borrador);
+            expect(enviados.correos).toHaveLength(0);
+
+
+            borradores.editarBorrador(borrador.ID, {
+                asunto: "Propuesta final",
+                contenido: "Adjunto los detalles.",
+                destinatarios: [destinatario]
+            });
+
+            enviador.enviarCorreo(borrador);
+            expect(borradores.correos).not.toContain(borrador);
+            expect(enviados.correos).toContain(borrador);
+        });
     });
-
-    // 4. Enviar el borrador ahora válido y comprobar el traslado de bandeja
-    enviador.enviarCorreo(borrador);
-    expect(borradores.correos).not.toContain(borrador);
-    expect(enviados.correos).toContain(borrador);
-  });
-});
 
 });

@@ -15,14 +15,14 @@ describe("Estadisticas", () => {
         expect(Estadisticas.asuntos(correos)).toEqual(["Hola", "Chau"]);
     });
         it("debe obtener los correos que cumplen una condición", () => {
-        correo1.leido = true;
+        correo1.Noleido = false;
         expect(Estadisticas.queCumplen(correos, noLeido)).toEqual([correo2]);
     });
         it("debe contar los correos que cumplen una condición", () => {
         const correoA = new Correo(3, "Uno", "Texto", ana, [juan]);
         const correoB = new Correo(4, "Dos", "Texto", ana, [juan]);
         const correoC = new Correo(5, "Tres", "Texto", ana, [juan]);
-        correoA.leido = true;
+        correoA.Noleido = false;
 
         expect(Estadisticas.contar([correoA, correoB, correoC], noLeido)).toBe(2);
     });

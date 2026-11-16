@@ -33,7 +33,7 @@ export class EnviadorCorreo {
             if (!this._mapaRecibidos.has(email)) {
                 this._mapaRecibidos.set(email, new BandejaRecibidos());
             }
-            this._mapaRecibidos.get(email)!.agregarCorreo(correo);
+            this._mapaRecibidos.get(email)!.agregarCorreo(correo.clonar());
         });
 
         this._borradores.eliminarCorreoPorID(correo.ID);

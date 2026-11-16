@@ -2,7 +2,7 @@ import { Filtro } from './filtro';
 import { Predicado, AND, NOT } from './predicados';
 
 
-export const NoLeido: Predicado = c => !c.leido;
+export const NoLeido: Predicado = c => c.Noleido;
 export const esFavorito: Predicado = c => c.favorito;
 export const asuntoTieneUrgente: Predicado = c => c.asunto.toLowerCase().includes("urgente");
 export const multiplesDestinos: Predicado = c => c.destinatarios.length > 1;

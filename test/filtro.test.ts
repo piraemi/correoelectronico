@@ -8,8 +8,8 @@ import { noLeido } from '../src/predicados';
 
 describe("Filtro y aplicacion de filtros", () => {
     it("debea aplicar correctamente el filtro de leidos y favoritos", () => {
-        const correoCumple = { ID: 1, leido: false, favorito: true } as Correo;
-        const correoNoCumpleLeido = { ID: 2, leido: true, favorito: true } as Correo;
+        const correoCumple = { ID: 1, Noleido: true, favorito: true } as Correo;
+        const correoNoCumpleLeido = { ID: 2, Noleido: false, favorito: true } as Correo;
 
         const bandejaOriginal = [correoCumple, correoNoCumpleLeido];
 
@@ -34,13 +34,18 @@ describe("Test envio de 100 correos y aplicacion de filtros", () => {
         const remitenteTest = new Contacto("nombre", "remitente@mail.com")
 
         for (let i = 1; i < 100; i++) {
-            const correoUrgente = { ID: i, destinatarios: [destinatarioTest], asunto: i % 7 === 0 ? "Urgente: Asunto " + i : "Asunto " + i,remitente: remitenteTest, leido: i % 2 === 0 ? true : false } as Correo;
+            const asunto = i % 7 === 0 ? "Urgente: Asunto" + i : "Asunto" + i;
+            const correoUrgente = new Correo(i, asunto, "Cuerpo", remitenteTest, [destinatarioTest])
+            if (i%2 === 0) {
+                correoUrgente.Noleido= false
+            }
+
             enviador.enviarCorreo(correoUrgente)
         }
 
         const bandejaFiltrada = filtroUrgentesNoLeidos.aplicar(enviados);
 
-        expect(bandejaFiltrada.every(c => c.asunto.toLowerCase().includes("urgente") && !c.leido)).toBe(true);
+        expect(bandejaFiltrada.every(c => c.asunto.toLowerCase().includes("urgente") && c.Noleido)).toBe(true);
         expect(bandejaFiltrada.length).toEqual(7); // Debería haber 7 correos que cumplen con el filtro
 
     });

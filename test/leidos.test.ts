@@ -20,16 +20,16 @@ describe("Leídos y no leídos", () => {
         recibidos.agregarCorreo(correo2);
     });
 
-    it("debe marcar un correo como leído y otra vez como no leído", () => {
-        correo1.leido = true;
-        expect(correo1.leido).toBe(true);
+    it("debe marcar un correo como no leído y otra vez como leído", () => {
+        correo1.Noleido = true;
+        expect(correo1.Noleido).toBe(true);
 
-        correo1.leido = false;
-        expect(correo1.leido).toBe(false);
+        correo1.Noleido = false;
+        expect(correo1.Noleido).toBe(false);
     });
 
     it("debe obtener los correos no leídos de una bandeja", () => {
-        correo1.leido = true;
+        correo1.Noleido = false;
         expect(recibidos.noLeidos).toEqual([correo2]);
     });
 
@@ -37,7 +37,7 @@ describe("Leídos y no leídos", () => {
         const filtroNoLeidos = new Filtro("No leídos", noLeido);
         expect(filtroNoLeidos.aplicar(recibidos.correos)).toEqual([correo1, correo2]);
 
-        correo2.leido = true;
+        correo2.Noleido = false;
         expect(filtroNoLeidos.aplicar(recibidos.correos)).toEqual([correo1]);
     });
 });

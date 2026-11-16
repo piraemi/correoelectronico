@@ -11,7 +11,7 @@ export const asuntoContiene = (texto: string): Predicado =>
 export const contenidoContiene = (texto: string): Predicado =>
     c => c.contenido.toLowerCase().includes(texto.toLowerCase());
 
-export const noLeido: Predicado = c => !c.leido;
+export const noLeido: Predicado = c => c.Noleido;
 
 export const esFavorito: Predicado = c => c.favorito;
 

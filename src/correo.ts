@@ -2,14 +2,13 @@ import { Contacto } from "./contacto";
 import { ValidadorCorreo } from "./validadorCorreo";
 
 export class Correo {
-    private static contador: number = 0;
 
     private _ID: number;
     private _asunto: string;
     private _contenido: string;
     private _remitente: Contacto;
     private _destinatarios: Contacto[];
-    private _leido: boolean;
+    private _Noleido: boolean;
     private _favorito: boolean;
 
     constructor(ID: number, asunto: string = "", contenido: string = "", remitente: Contacto, destinatarios: Contacto[] = []) {
@@ -18,7 +17,7 @@ export class Correo {
         this._contenido = contenido;
         this._remitente = remitente;
         this._destinatarios = [...destinatarios];
-        this._leido = false;
+        this._Noleido = true;
         this._favorito = false;
     }
 
@@ -42,12 +41,12 @@ export class Correo {
         return [...this._destinatarios];
     }
 
-    public get leido(): boolean {
-        return this._leido;
+    public get Noleido(): boolean {
+        return this._Noleido;
     }
 
-    public set leido(valor: boolean) {
-        this._leido = valor;
+    public set Noleido(valor: boolean) {
+        this._Noleido = valor;
     }
 
     public get favorito(): boolean {
@@ -60,4 +59,13 @@ export class Correo {
    public set asunto(nuevoAsunto: string) {this._asunto = nuevoAsunto; }
    public set contenido(nuevoContenido: string) {this._contenido = nuevoContenido;}
    public set destinatarios(nuevosDestinatarios: Contacto[]) {this._destinatarios = [...nuevosDestinatarios]}
+   public clonar(): Correo {
+    return new Correo(
+      this._ID,
+      this._asunto,
+      this._contenido,
+      this._remitente,
+      [...this._destinatarios] 
+    );
+  }
 }

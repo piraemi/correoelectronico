@@ -41,8 +41,13 @@ describe("EnviadorCorreos", () => {
     const bandejaRecibidosDestinatario1 = enviador['_mapaRecibidos'].get(destinatario1.email);
     const bandejaRecibidosDestinatario2 = enviador['_mapaRecibidos'].get(destinatario2.email);
     
-    expect(bandejaRecibidosDestinatario1?.correos).toContain(correo);
-    expect(bandejaRecibidosDestinatario2?.correos).toContain(correo);
+    const correoRecibido1 = bandejaRecibidosDestinatario1?.correos[0]
+    const correoRecibido2 = bandejaRecibidosDestinatario2?.correos[0]
+
+    expect(correoRecibido1).toEqual(correo);
+    expect(correoRecibido1).not.toBe(correo);
+    expect(correoRecibido2).toEqual(correo);
+    expect(correoRecibido2).not.toBe(correo);
 
   });
 
