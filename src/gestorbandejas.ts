@@ -1,4 +1,5 @@
 import { Correo } from './correo';
+import { noLeido } from './predicados';
 
 export class GestorBandejas {
     private _correos: Correo[] = [];
@@ -13,5 +14,8 @@ export class GestorBandejas {
     }
     public get correos(): Correo[] {
         return [...this._correos];
+    }
+    public get noLeidos(): Correo[] {
+    return this._correos.filter(noLeido);
     }
 }
