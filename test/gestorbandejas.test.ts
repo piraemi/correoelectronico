@@ -66,5 +66,37 @@ describe("GestorBandejas y clases hijas", () => {
         expect(bandejaRecibidosDestinatario3!.correos).toContain(correo);
 
     });
+    describe("RF-07: Gestión de Borradores", () => {
+
+  it("debe guardar un borrador incompleto, impedir su envío, permitir editarlo y luego enviarlo", () => {
+    const remitente = new Contacto("Juan", "juan@test.com");
+    const destinatario = new Contacto("María", "maria@test.com");
+    const borradores = new BandejaBorradores();
+    const enviados = new BandejaEnviados();
+    const enviador = new EnviadorCorreo(enviados, borradores);
+
+   
+    const borrador = new Correo(1, "", "", remitente);
+    borradores.agregarCorreo(borrador);
+    expect(borradores.correos).toContain(borrador);
+
+    
+    expect(() => enviador.enviarCorreo(borrador)).toThrow();
+    expect(borradores.correos).toContain(borrador);
+    expect(enviados.correos).toHaveLength(0);
+
+  
+    borradores.editarBorrador(borrador.ID, {
+      asunto: "Propuesta final",
+      contenido: "Adjunto los detalles.",
+      destinatarios: [destinatario]
+    });
+
+    // 4. Enviar el borrador ahora válido y comprobar el traslado de bandeja
+    enviador.enviarCorreo(borrador);
+    expect(borradores.correos).not.toContain(borrador);
+    expect(enviados.correos).toContain(borrador);
+  });
+});
 
 });

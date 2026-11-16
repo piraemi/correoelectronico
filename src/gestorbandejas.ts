@@ -18,4 +18,7 @@ export class GestorBandejas {
     public get noLeidos(): Correo[] {
     return this._correos.filter(noLeido);
     }
+    public obtenerPorID(id:number): Correo | undefined {
+        return this._correos.find(c => c.ID === id)
+    }
 }

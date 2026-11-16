@@ -31,9 +31,10 @@ describe("Test envio de 100 correos y aplicacion de filtros", () => {
         const borradores = new BandejaBorradores();
         const enviador = new EnviadorCorreo(enviados, borradores);
         const destinatarioTest = new Contacto('Nombre', 'test100@mail.com')
+        const remitenteTest = new Contacto("nombre", "remitente@mail.com")
 
         for (let i = 1; i < 100; i++) {
-            const correoUrgente = { ID: i, destinatarios: [destinatarioTest], asunto: i % 7 === 0 ? "Urgente: Asunto " + i : "Asunto " + i, leido: i % 2 === 0 ? true : false } as Correo;
+            const correoUrgente = { ID: i, destinatarios: [destinatarioTest], asunto: i % 7 === 0 ? "Urgente: Asunto " + i : "Asunto " + i,remitente: remitenteTest, leido: i % 2 === 0 ? true : false } as Correo;
             enviador.enviarCorreo(correoUrgente)
         }
 

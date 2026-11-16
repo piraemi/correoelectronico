@@ -1,5 +1,6 @@
 import { Correo } from "./correo";
 import { BandejaEnviados, BandejaRecibidos, BandejaBorradores } from "./bandejas";
+import { ValidadorCorreo } from "./validadorCorreo";
 
 export class EnviadorCorreo {
     private _enviados: BandejaEnviados;
@@ -20,6 +21,8 @@ export class EnviadorCorreo {
     }
 
     public enviarCorreo(correo: Correo): void {
+        ValidadorCorreo.validarCorreo(correo);
+
         const yaEnviado = this._enviados.existeCorreoPorID(correo.ID);
         if (yaEnviado) {
             throw new Error(`El correo con ID ${correo.ID} ya ha sido enviado`);

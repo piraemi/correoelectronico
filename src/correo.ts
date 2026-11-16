@@ -12,16 +12,12 @@ export class Correo {
     private _leido: boolean;
     private _favorito: boolean;
 
-    constructor(ID: number, asunto: string, contenido: string, remitente: Contacto, destinatarios: Contacto[]) {
+    constructor(ID: number, asunto: string = "", contenido: string = "", remitente: Contacto, destinatarios: Contacto[] = []) {
         this._ID = ID;
         this._asunto = asunto;
         this._contenido = contenido;
         this._remitente = remitente;
         this._destinatarios = [...destinatarios];
-        
-         ValidadorCorreo.validarCorreo(this);
-
-       
         this._leido = false;
         this._favorito = false;
     }
@@ -61,5 +57,7 @@ export class Correo {
     public set favorito(valor: boolean) {
         this._favorito = valor;
     }
-   
+   public set asunto(nuevoAsunto: string) {this._asunto = nuevoAsunto; }
+   public set contenido(nuevoContenido: string) {this._contenido = nuevoContenido;}
+   public set destinatarios(nuevosDestinatarios: Contacto[]) {this._destinatarios = [...nuevosDestinatarios]}
 }

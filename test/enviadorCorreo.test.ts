@@ -51,4 +51,11 @@ describe("EnviadorCorreos", () => {
 
     expect(() => enviador.enviarCorreo(correo)).toThrowError(`El correo con ID ${correo.ID} ya ha sido enviado`);
 });
+  it("debe lanzar error al crear correo sin remitente", () => {
+        remitente = null as unknown as Contacto; // Forzamos un valor nulo para el remitente
+        destinatario1 = new Contacto("María García", "maria.garcia@gmail.com");
+        const correoSinAsunto = new Correo(1, "", "Cuerpo", remitente, [destinatario1]);
+
+        expect(() => enviador.enviarCorreo(correoSinAsunto)).toThrow()
+});
 })
