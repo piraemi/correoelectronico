@@ -1,6 +1,7 @@
 import { Correo } from "./correo";
 import { BandejaEnviados, BandejaRecibidos, BandejaBorradores } from "./bandejas";
 import { ValidadorCorreo } from "./validadorCorreo";
+import { ClonadorCorreo } from "./clonadorCorreo";
 
 export class EnviadorCorreo {
     private _enviados: BandejaEnviados;
@@ -33,7 +34,7 @@ export class EnviadorCorreo {
             if (!this._mapaRecibidos.has(email)) {
                 this._mapaRecibidos.set(email, new BandejaRecibidos());
             }
-            this._mapaRecibidos.get(email)!.agregarCorreo(correo.clonar());
+            this._mapaRecibidos.get(email)!.agregarCorreo(ClonadorCorreo.clonar(correo));
         });
 
         this._borradores.eliminarCorreoPorID(correo.ID);

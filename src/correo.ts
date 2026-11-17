@@ -59,13 +59,6 @@ export class Correo {
    public set asunto(nuevoAsunto: string) {this._asunto = nuevoAsunto; }
    public set contenido(nuevoContenido: string) {this._contenido = nuevoContenido;}
    public set destinatarios(nuevosDestinatarios: Contacto[]) {this._destinatarios = [...nuevosDestinatarios]}
-   public clonar(): Correo {
-    return new Correo(
-      this._ID,
-      this._asunto,
-      this._contenido,
-      this._remitente,
-      [...this._destinatarios] 
-    );
-  }
+  
+
 }
