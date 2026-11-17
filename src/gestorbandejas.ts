@@ -1,7 +1,7 @@
 import { Correo } from './correo';
 import { noLeido } from './predicados';
 
-export class GestorBandejas {
+export abstract class GestorBandejas {
     private _correos: Correo[] = [];
     public agregarCorreo(correo: Correo): void {
         this._correos.push(correo);
